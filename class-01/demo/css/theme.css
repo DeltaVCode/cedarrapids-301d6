@@ -1,0 +1,37 @@
+header, footer {
+  background-color: #5E747F;
+  color: white;
+}
+ 
+nav {
+  background-color: #7B9E87;
+}
+ 
+nav a {
+  color: white;
+}
+ 
+nav a:hover {
+  background-color: #B6BE9C;
+  color: black;
+}
+
+.advertisement {
+  border: none;
+}
+ 
+.featured-products {
+  background-color: #b6d7a8;
+}
+ 
+.testimonials {
+  background-color: #9fc5e8;
+}
+ 
+.contributions {
+  background-color: #b4a7d6;
+}
+
+.all {
+  background-color: #d5a6bd;
+}

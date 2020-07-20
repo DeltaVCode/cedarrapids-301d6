@@ -1,0 +1,46 @@
+/* Mobile view */
+.service-testimonial, .product-testimonial, .gold, .silver {
+  width: 50%;
+  float: left;
+}
+
+.group:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.all {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* Tablet view */
+@media (min-width: 680px) {
+
+}
+
+ /* Desktop view */
+@media (min-width: 1000px) {
+  .advertisement {
+    width: 25%;
+    float: right;
+    min-height: 100%;
+    line-height: 300px;
+  }
+
+  .main {
+    width: 75%;
+    float: left;
+  }
+
+  .contributions div {
+    width: 33.333%;
+    float: left;
+  }
+
+  .all {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+}
