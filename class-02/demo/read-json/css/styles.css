@@ -1,0 +1,59 @@
+@import "reset.css";
+ 
+* {
+  box-sizing: border-box;
+}
+ 
+img {
+  max-width: 100%;
+  margin: 0 auto;
+  display: block;
+}
+ 
+h1 {
+  text-align: center;
+  font-size: 2em;
+  margin: 1em;
+  font-weight: bold;
+}
+ 
+main {
+  background-color: #eee;
+  padding: 1em;
+}
+ 
+#photo-gallery {
+  background: #aaa;
+  margin: 0 auto;
+  max-width: 928px;
+}
+ 
+#photo-gallery:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+ 
+.person {
+  width: 200px;
+  padding: 1em;
+  margin: 1em;
+  background-color: white;
+  float: left;
+}
+ 
+.person h3 {
+  text-align: center;
+  margin: 0.25em;
+  font-size: 1.25em;
+  font-weight: bold;
+}
+ 
+.person p {
+  text-align: center;
+  margin: 0.25em;
+}
+ 
+/* .person-template {
+  display: none;
+} */
