@@ -2,10 +2,38 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Seattle Neighborhood Data</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+
+  <script type="text/x-tmpl-mustache" id="neighborhood-template">
+    <article class="neighborhood">
+      <h2><a href="{{url}}" target="_blank">{{name}}</a></h2>
+      <p><strong>Part of:</strong> {{city}}</p>
+      <p><strong>Current population: </strong> {{population}}</p>
+      <p><strong>Founded on: </strong> {{founded}}</p>
+      {{{body}}}
+      <p><strong>Star rating: </strong> {{{stars}}}</p>
+    </article>
+  </script>
 </head>
 <body>
-  
+  <header>
+    <h1>Neighborhood Stats</h1>
+  </header>
+ 
+  <main>
+    <section id="neighborhoods">
+      
+    </section>
+  </main>
+ 
+  <footer>
+    <p>© 2020 Fake Data Limited</p>
+  </footer>
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script src="https://unpkg.com/mustache@latest"></script>
+  <script src="scripts/app.js"></script>
 </body>
 </html>

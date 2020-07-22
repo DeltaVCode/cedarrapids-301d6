@@ -1,2 +1,85 @@
 @import "reset.css";
 
+@import "reset.css";
+ 
+* {
+  box-sizing: border-box;
+}
+ 
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100px;
+  background: #888;
+  color: #fff;
+  text-align: center;
+}
+ 
+header h1 {
+  margin: 0;
+  font-size: 3em;
+  line-height: 100px;
+}
+ 
+main {
+  margin-top: 100px;
+  padding: 1em;
+}
+ 
+#neighborhoods {
+  background-color: #eee;
+  width: 600px;
+  margin: 0 auto;
+}
+ 
+#neighborhoods:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+ 
+.neighborhood {
+  background-color: white;
+  margin: 1em;
+  padding: 1em;
+  border: solid 1px #444;
+  width: 268px;
+  float: left;
+}
+ 
+.neighborhood h2 {
+  font-size: 1.5em;
+  text-align: center;
+  font-weight: bold;
+}
+ 
+.neighborhood a {
+  color: #444;
+}
+ 
+.neighborhood h2:after {
+  content: '\f08e';
+  font-family: FontAwesome;
+  color: #444;
+  font-size: 16px;
+  margin-left:5px;
+}
+ 
+.neighborhood p {
+  margin-top: 0.5em;
+  padding: 1em;
+  background: #ccc;
+  color: #444;
+}
+ 
+strong {
+  font-weight: bold;
+}
+ 
+footer {
+  padding: 1em;
+  background: #444;
+  color: #fff;
+  text-align: right;
+}

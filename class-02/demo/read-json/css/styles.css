@@ -20,6 +20,7 @@ h1 {
 main {
   background-color: #eee;
   padding: 1em;
+  position: relative;
 }
  
 #photo-gallery {
@@ -57,3 +58,18 @@ main {
 /* .person-template {
   display: none;
 } */
+
+.spinner {
+  position: absolute;
+  top: 0.5em;
+  left: 0.5em;
+}
+ 
+.fa {
+  margin-right: 0.5em;
+}
+
+#filter-sort-search {
+  text-align: center;
+  padding-bottom: 1em;
+}
