@@ -5,11 +5,9 @@ $(() => {
   $.ajax('./data/people.json', ajaxSettings)
     .then((data) => {
       const arrayOfPeople = data.results;
-      // console.log(arrayOfPeople);
       arrayOfPeople.forEach((person) => {
         Person.all.push(new Person(person));
       });
-      // console.log(Person.all);
     })
     .then(() => {
       renderPeople();
@@ -33,12 +31,11 @@ Person.all = [];
 
 Person.prototype.render = function () {
   let $template = $('.person-template').clone();
-  $template.find('.fullName').text(this.getFullName);
   $template.removeClass('person-template');
+  $template.find('.fullName').text(this.getFullName);
   $template.find('.profileImage').attr('src', this.image_url);
   $template.find('.profileImage').attr('alt', this.getFullName);
   $template.find('.location').text(`${this.location.city}, ${this.location.state}`);
-  console.log($template);
   return $template;
 };
 
