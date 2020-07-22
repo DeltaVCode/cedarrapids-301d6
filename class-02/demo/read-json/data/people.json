@@ -539,6 +539,7 @@
               "first": "Victor",
               "last": "Rüter"
           },
+          "premiumUser" : "true",
           "location": {
               "street": {
                   "number": 8609,

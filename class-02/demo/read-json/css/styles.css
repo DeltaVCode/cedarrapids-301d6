@@ -27,12 +27,13 @@ main {
   background: #aaa;
   margin: 0 auto;
   max-width: 928px;
-}
- 
-#photo-gallery:after {
-  content: "";
-  display: table;
-  clear: both;
+
+  /* Flexbox code for the parent */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items:;
+  justify-content:;
 }
  
 .person {
@@ -40,7 +41,9 @@ main {
   padding: 1em;
   margin: 1em;
   background-color: white;
-  float: left;
+
+  /* Flexbox code for the child */
+
 }
  
 .person h3 {
@@ -70,6 +73,21 @@ main {
 }
 
 #filter-sort-search {
-  text-align: center;
   padding-bottom: 1em;
+
+  /* Add Flexbox to parent */
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.person {
+  order: 2;
+}
+
+.premium-user {
+  order: 1;
+}
+
+.premium-user h3:after {
+  
 }

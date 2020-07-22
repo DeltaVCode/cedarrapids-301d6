@@ -34,6 +34,7 @@ function Person(person) {
   if(Person.allNationalities.indexOf(this.nationality) < 0) {
     Person.allNationalities.push(this.nationality);
   }
+  this.premium = person.premiumUser;
 }
 
 Person.all = [];
@@ -42,6 +43,9 @@ Person.allNationalities = [];
 Person.prototype.render = function () {
   let $template = $('.person-template').clone();
   $template.removeClass('person-template');
+  if (this.premium) {
+    $template.addClass('premium-user');
+  }
   $template.find('.fullName').text(this.getFullName);
   $template.find('.profileImage').attr('src', this.image_url);
   $template.find('.profileImage').attr('alt', this.getFullName);
