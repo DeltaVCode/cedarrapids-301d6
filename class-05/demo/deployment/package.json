@@ -1,18 +1,26 @@
 {
-  "name": "deployment",
+  "name": "marc-portfolio",
   "version": "1.0.0",
-  "description": "",
+  "description": "Marc Hauschildt's professional portfolio",
   "main": "server.js",
-  "dependencies": {
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1"
-  },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mlhaus/mlhaus.github.io.git"
+  },
+  "author": "Marc Hauschildt",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mlhaus/mlhaus.github.io/issues"
+  },
+  "homepage": "https://github.com/mlhaus/mlhaus.github.io#readme",
+  "dependencies": {
+    "cowsay": "^1.4.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.4"
+  }
 }

@@ -1,22 +1,26 @@
 'use strict';
 
 // Application Dependencies
+const express = require('express');
 require('dotenv').config();
-const express = require('express'); //
 
-// Application Setup 
-const app = express(); //
-const PORT = process.env.PORT || 3000; //
+// Application Setup
+const app = express();
+const PORT = process.env.PORT || 3000;
 
 // Route Definitions
 app.use(express.static('./public'));
 app.get('/greet', greetHandler);
 app.get('/data', dataHandler);
+app.get('/error', (request, response) => {
+  throw new Error('Try again later');
+});
 app.use('*', notFoundHandler);
+app.use(errorHandler);
 
 // Route Handlers
 function greetHandler(request, response) {
-  response.status(200).send('Hello World!');
+  response.status(200).send('Hello!');
 }
 
 function dataHandler(request, response) {
@@ -36,8 +40,12 @@ function dataHandler(request, response) {
 }
 
 function notFoundHandler(request, response) {
-  response.status(404).send('404 - Not Found');
+  response.status(404).json({ notFound: true });
+}
+
+function errorHandler(request, repsonse) {
+  response.status(500).json({ error: true, message: error.message });
 }
 
 // App listener
-app.listen(PORT,() => console.log(`Listening on port ${PORT}`)); //
+app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
