@@ -12,6 +12,7 @@ $(() => {
     })
     .then(() => {
       renderPeople();
+      hideAndShow();
       renderFilters();
       handleFilters();
       $('.spinner').fadeOut();
@@ -39,6 +40,9 @@ function Person(person) {
 
 Person.all = [];
 Person.allNationalities = [];
+Person.numPages;
+Person.peoplePerPage = 12;
+Person.currentPage = 1;
 
 Person.prototype.render = function () {
   let $template = $('.person-template').clone();
@@ -60,6 +64,11 @@ function renderPeople() {
 }
 
 function renderFilters() {
+  renderNationalityFilter();
+  renderPaginationFilter();
+}
+
+function renderNationalityFilter() {
   Person.allNationalities.sort();
   Person.allNationalities.forEach(nationality => {
     const $option = $('<option>').text(nationality).attr('value', nationality);
@@ -67,7 +76,21 @@ function renderFilters() {
   });
 }
 
+function renderPaginationFilter() {
+  Person.numPages = Math.ceil(Person.all.length / Person.peoplePerPage);
+  for (let i = 1; i <= Person.numPages; i++) {
+    const $option = $('<option>').text(i).attr('value', i);
+    $('#page-filter').append($option);
+  }
+  $('#pageCount').text(Person.numPages);
+}
+
 function handleFilters() {
+  handleNationalityFilter();
+  handlePagination();
+}
+
+function handleNationalityFilter() {
   $('#nationality-filter').on('change', function() {
     if($(this).val() !== '') {
       $('.person').hide();
@@ -76,4 +99,20 @@ function handleFilters() {
       $('.person').fadeIn();
     }
   });
+}
+
+function handlePagination() {
+  $('#page-filter').change(function () {
+    Person.currentPage = $(this).val();
+    hideAndShow();
+  });
+}
+
+function hideAndShow() {
+  $('.person').hide();
+  let start = Person.peoplePerPage * (Person.currentPage - 1);
+  let end = start + Person.peoplePerPage < Person.all.length ? start + Person.peoplePerPage : Person.all.length;
+  $('#firstShowing').text(start + 1);
+  $('#lastShowing').text(end);
+  $('.person').slice(start, end).fadeIn();
 }

@@ -19,15 +19,27 @@
       </section>
 
       <section>Sort by: 
-        <select id="sort-filter">
-          <option value="">A-Z</option>
+        <select id="sort-by">
+          <option value="alpha">Name A-Z</option>
+          <option value="alpha-rev">Name Z-A</option>
+          <option value="age">Age 0-&infin;</option>
+          <option value="age-rev">Age &infin;-0</option>
         </select>
       </section>
 
-      <form>Search by name:
+      <!-- <form>Search by name:
         <input type="text" id="nameSearch" placeholder="Name here">
         <input type="submit" value="Go">
-      </form>
+      </form> -->
+
+      <section>Page: 
+        <select id="page-filter">
+        </select> of <span id="pageCount"></span>
+      </section>
+
+      <section>Viewing: 
+        <span id="firstShowing"></span> to <span id="lastShowing"></span>
+      </section>
     </div>
   </header>
   <main>
