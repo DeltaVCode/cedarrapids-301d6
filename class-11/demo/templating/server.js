@@ -73,6 +73,10 @@ app.post('/order', (request, response) => {
 
   // save order data into Postgres
 
+  // if (request.body.zip does not match regex) { 
+  //   res.status(400)// etc
+  // }
+
   let viewModel = {
     orderAddress: request.body
   }

@@ -19,7 +19,7 @@
           <legend>Shipping Address</legend>
           <label>
             <span>Address</span>
-            <input type="text" name="address1" />
+            <input type="text" name="address1" required />
           </label>
           <label>
             <span>City</span>
@@ -27,12 +27,16 @@
           </label>
           <label>
             <span>State</span>
-            <select name="state">
+            <select name="state" required>
               <option></option>
               <option>Iowa</option>
               <option>Illinois</option>
               <option>Wisconsin</option>
             </select>
+          </label>
+          <label>
+            <span>ZIP Code</span>
+            <input type="string" name="zip" pattern="^\d{5}(-?\d{4})?$" />
           </label>
           <label>
             <span>Phone</span>
