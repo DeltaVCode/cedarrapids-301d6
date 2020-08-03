@@ -5,13 +5,20 @@
     <link href="./styles/base.css" rel="stylesheet" />
   </head>
   <body>
-    <h1>Welcome Home, <%= user.username %></h1>
+    <h1>Products for <%= user.username %></h1>
     <nav>
       <ul>
         <li><a href="/">Home</a></li>
         <li><a href="/list">Product List</a></li>
       </ul>
     </nav>
+    <main>
+      <ul>
+        <% productList.forEach(product => { %>
+          <li><%= product %></li>
+        <% }) %>
+      </ul>
+    </main>
     <script src="./scripts/app.js"></script>
   </body>
 </html>

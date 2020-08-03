@@ -9,12 +9,26 @@ app.set('view engine', 'ejs');
 // Wire up static files from public folder
 app.use(express.static('./public'));
 
+// Normally user would come from Authentication
+const user = { username: 'dahlbyk' }
+
 // Page Routes
 app.get('/', (request, response) => {
   let viewModel = {
-    user: { username: 'dahlbyk' }
+    user,
   }
   response.render('index', viewModel);
+})
+
+app.get('/list', (request, response) => {
+  // TODO: get from database
+  let list = ['apples','bananas','kiwi'];
+
+  let viewModel = {
+    user,
+    productList: list,
+  }
+  response.render('list', viewModel);
 })
 
 app.get('*', (request, response) => response.status(404).send('This route does not exist'));
