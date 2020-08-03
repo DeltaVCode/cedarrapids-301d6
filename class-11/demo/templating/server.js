@@ -31,6 +31,20 @@ app.get('/list', (request, response) => {
   response.render('list', viewModel);
 })
 
+// TODO: get from database
+let cart = [
+  { product: 'apples', quantity: 5, price: .5 },
+  { product: 'bananas', quantity: 8, price: .25 },
+];
+app.get('/cart', (request, response) => {
+  let viewModel = {
+    user,
+    cart, // same as cart: cart,
+    total: cart.reduce((total, item) => total + (item.price * item.quantity), 0),
+  };
+  response.render('cart', viewModel);
+})
+
 app.get('*', (request, response) => response.status(404).send('This route does not exist'));
 
 // Use this as a talking point about environment variables

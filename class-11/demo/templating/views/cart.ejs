@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Cart</title>
+    <link href="./styles/base.css" rel="stylesheet" />
+  </head>
+  <body>
+    <h1>Cart for <%= user.username %></h1>
+    <nav>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/list">Product List</a></li>
+        <li><a href="/cart">Cart</a></li>
+      </ul>
+    </nav>
+    <main class="cart">
+      <table>
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Subtotal</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% cart.forEach(item => { %>
+            <tr>
+              <td><%= item.product %></td>
+              <td class="right-align">$<%= item.price.toFixed(2) %></td>
+              <td class="right-align"><%= item.quantity || 1 %></td>
+              <td class="right-align">$<%= (item.price * (item.quantity || 1)).toFixed(2) %></td>
+            </tr>
+          <% }) %>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td class="right-align" colspan="3">Total</td>
+            <td class="right-align">$<%= total.toFixed(2) %></td>
+          </tr>
+        </tfoot>
+      </table>
+    </main>
+    <script src="./scripts/app.js"></script>
+  </body>
+</html>
