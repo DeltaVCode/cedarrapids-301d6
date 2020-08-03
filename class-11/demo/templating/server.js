@@ -8,6 +8,10 @@ app.set('view engine', 'ejs');
 // Middleware!
 // Wire up static files from public folder
 app.use(express.static('./public'));
+// Handle POST body from forms!
+app.use(express.urlencoded({ extended: true }));
+// AJAX might POST a body with JSON in it
+app.use(express.json());
 
 // Normally user would come from Authentication
 const user = { username: 'dahlbyk' }
@@ -43,6 +47,36 @@ app.get('/cart', (request, response) => {
     total: cart.reduce((total, item) => total + (item.price * item.quantity), 0),
   };
   response.render('cart', viewModel);
+})
+
+app.get('/checkout', (request, response) => {
+  let viewModel = {
+    user,
+  };
+  response.render('checkout', viewModel);
+})
+
+app.get('/order', (request, response) => {
+  console.log('query', request.query); // info from the query string
+
+  // save order data into Postgres
+
+  let viewModel = {
+    orderAddress: request.body
+  }
+  response.render('thanks', viewModel);
+})
+
+app.post('/order', (request, response) => {
+  console.log('query', request.query); // info from the query string
+  console.log('body', request.body); // info from the request body
+
+  // save order data into Postgres
+
+  let viewModel = {
+    orderAddress: request.body
+  }
+  response.render('thanks', viewModel);
 })
 
 app.get('*', (request, response) => response.status(404).send('This route does not exist'));

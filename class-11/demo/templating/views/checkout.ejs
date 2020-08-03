@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Checkout</title>
+    <link href="./styles/base.css" rel="stylesheet" />
+  </head>
+  <body>
+    <h1>Give us money, <%= user.username %></h1>
+    <nav>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/list">Product List</a></li>
+        <li><a href="/cart">Cart</a></li>
+      </ul>
+    </nav>
+    <main>
+      <form action="/order" method="post">
+        <fieldset>
+          <legend>Shipping Address</legend>
+          <label>
+            <span>Address</span>
+            <input type="text" name="address1" />
+          </label>
+          <label>
+            <span>City</span>
+            <input type="text" name="city" />
+          </label>
+          <label>
+            <span>State</span>
+            <select name="state">
+              <option></option>
+              <option>Iowa</option>
+              <option>Illinois</option>
+              <option>Wisconsin</option>
+            </select>
+          </label>
+          <label>
+            <span>Phone</span>
+            <input type="tel" name="phone" />
+          </label>
+        </fieldset>
+        <button>Pay Now</button>
+      </form>
+    </main>
+    <script src="./scripts/app.js"></script>
+  </body>
+</html>
