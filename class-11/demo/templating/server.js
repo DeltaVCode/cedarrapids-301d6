@@ -5,6 +5,11 @@ const express = require('express');
 const app = express();
 app.set('view engine', 'ejs');
 
+// Middleware!
+// Wire up static files from public folder
+app.use(express.static('./public'));
+
+// Page Routes
 app.get('/', (request, response) => {
   let viewModel = {
     user: { username: 'dahlbyk' }
