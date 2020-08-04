@@ -35,24 +35,60 @@ app.post('/add', addTask);
 
 app.get('*', (req, res) => res.status(404).send('This route does not exist'));
 
+console.log('Trying to connect to Postgres')
 client.connect()
   .then(() => {
     app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
-  });
+  })
+  .catch(err => { throw err; })
 
 // HELPER FUNCTIONS
 
 function getTasks(request, response) {
+  const SQL = `
+    SELECT *
+    FROM tasks
+  `;
+  client.query(SQL)
+    .then(results => {
+      let viewModel = {
+        tasks: results.rows,
+      };
+      response.render('index', viewModel);
+    })
 }
 
 function getOneTask(request, response) {
 }
 
 function showForm(request, response) {
+  response.render('pages/add-task')
 }
 
 function addTask(request, response) {
+  console.log(request.body);
+  // Destructuring
+  let { title, description, category, contact, status } = request.body;
+
+  const SQL = `
+    INSERT INTO tasks (title, description, category, contact, status)
+    VALUES ($1,$2,$3,$4,$5)
+  `;
+  const values = [title, description, category, contact, status];
+
+  client.query(SQL, values)
+    .then(() => {
+      // POST - Redirect - GET pattern
+      response.redirect('/');
+    })
+    .catch(err => {
+      handleError(err, response);
+    });
 }
 
 function handleError(error, response) {
+  let viewModel = {
+    error: error.message
+  };
+  response.status(500).render('pages/error', viewModel);
 }
