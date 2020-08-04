@@ -2,9 +2,13 @@
 <html>
   <head>
     <title>Add Task</title>
+    <%- include('../layout/styles') %>
   </head>
   <body>
-    <h1>Add Task</h1>
+    <header>
+      <h1>Add Task</h1>
+      <%- include('../layout/nav') %>
+    </header>
     <form id="create-form" action="/add" method="post">
       <fieldset>
         <legend>Add a task</legend>
@@ -16,5 +20,6 @@
         <button type="submit">Add This Task</button>
       </fieldset>
     </form>
+    <%- include('../layout/footer') %>
   </body>
 </html>

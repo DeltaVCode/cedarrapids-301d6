@@ -2,15 +2,19 @@
 <html>
   <head>
     <title>Tasks!</title>
+    <%- include('./layout/styles') %>
   </head>
   <body>
-    <h1>Tasks!</h1>
-    <a href="/add">Add New Task</a>
+    <header>
+      <h1>Tasks!</h1>
+      <%- include('layout/nav') %>
+    </header>
     <% tasks.forEach(task => { %>
       <section>
         <h4><%= task.title %></h4>
         <p><%= task.description %></p>
       </section>
     <% }) %>
+    <%- include('./layout/footer') %>
   </body>
 </html>
