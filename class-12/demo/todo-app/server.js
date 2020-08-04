@@ -72,6 +72,7 @@ function getOneTask(request, response) {
       };
       response.render('pages/detail', viewModel);
     })
+    .catch(err => handleError(err, response));
 }
 
 function showForm(request, response) {
