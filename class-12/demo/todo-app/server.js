@@ -59,6 +59,19 @@ function getTasks(request, response) {
 }
 
 function getOneTask(request, response) {
+  const SQL = `
+    SELECT *
+    FROM tasks
+    WHERE id = $1
+  `;
+  let values = [request.params.task_id];
+  client.query(SQL, values)
+    .then(result => {
+      let viewModel = {
+        task: result.rows[0],
+      };
+      response.render('pages/detail', viewModel);
+    })
 }
 
 function showForm(request, response) {

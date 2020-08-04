@@ -13,6 +13,7 @@
       <section>
         <h4><%= task.title %></h4>
         <p><%= task.description %></p>
+        <p><a href="/tasks/<%= task.id %>">Details</a></p>
       </section>
     <% }) %>
     <%- include('./layout/footer') %>

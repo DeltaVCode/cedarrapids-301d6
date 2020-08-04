@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Add Task</title>
+    <%- include('../layout/styles') %>
+  </head>
+  <body>
+    <header>
+      <h1>Task Detail</h1>
+      <%- include('../layout/nav') %>
+    </header>
+    <main>
+      <h2><%= task.title %></h2>
+      <p><%= task.description %></p>
+      <p>Contact: <%= task.contact %></p>
+    </main>
+    <%- include('../layout/footer') %>
+  </body>
+</html>
