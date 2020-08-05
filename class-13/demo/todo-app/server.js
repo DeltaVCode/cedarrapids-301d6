@@ -1,26 +1,21 @@
 'use strict'
 
-// Environment variables
-require('dotenv').config();
-
 // Application Dependencies
 const express = require('express');
 const pg = require('pg');
-const methodOverride = require('method-override');
+
+// Environment variables
+require('dotenv').config();
 
 // Application Setup
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Application Middleware
+// Express middleware
+// Utilize ExpressJS functionality to parse the body of the request
 app.use(express.urlencoded({ extended: true }));
-app.use(methodOverride('_method'));
-
-// Set the view engine for server-side templating
-app.set('view engine', 'ejs');
-
-// Static Routes
-app.use(express.static('public'));
+// Specify a directory for static resources
+app.use(express.static('./public'));
 
 // Database Setup
 const client = new pg.Client(process.env.DATABASE_URL);
@@ -31,72 +26,83 @@ app.set('view engine', 'ejs');
 
 // API Routes
 app.get('/', getTasks);
+
 app.get('/tasks/:task_id', getOneTask);
+
 app.get('/add', showForm);
+
 app.post('/add', addTask);
-app.put('/update/:task_id', updateTask);
 
-// Failsafe Routes
 app.get('*', (req, res) => res.status(404).send('This route does not exist'));
-app.get((error, req, res) => handleError(error, res)); // handle errors
 
+console.log('Trying to connect to Postgres')
+client.connect()
+  .then(() => {
+    app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
+  })
+  .catch(err => { throw err; })
 
 // HELPER FUNCTIONS
 
 function getTasks(request, response) {
-  let SQL = 'SELECT * from tasks;';
-
-  return client.query(SQL)
-    .then(results => response.render('index', { results: results.rows }))
-    .catch(handleError);
+  const SQL = `
+    SELECT *
+    FROM tasks
+  `;
+  client.query(SQL)
+    .then(results => {
+      let viewModel = {
+        tasks: results.rows,
+      };
+      response.render('index', viewModel);
+    })
 }
 
 function getOneTask(request, response) {
-  let SQL = 'SELECT * FROM tasks WHERE id=$1;';
+  const SQL = `
+    SELECT *
+    FROM tasks
+    WHERE id = $1
+  `;
   let values = [request.params.task_id];
-
-  return client.query(SQL, values)
+  client.query(SQL, values)
     .then(result => {
-      // console.log('single', result.rows[0]);
-      return response.render('pages/detail-view', { task: result.rows[0] });
+      let viewModel = {
+        task: result.rows[0],
+      };
+      response.render('pages/detail', viewModel);
     })
     .catch(err => handleError(err, response));
 }
 
 function showForm(request, response) {
-  response.render('pages/add-view');
+  response.render('pages/add-task')
 }
 
 function addTask(request, response) {
   console.log(request.body);
+  // Destructuring
   let { title, description, category, contact, status } = request.body;
 
-  let SQL = 'INSERT INTO tasks(title, description, category, contact, status) VALUES ($1, $2, $3, $4, $5);';
-  let values = [title, description, category, contact, status];
-
-  return client.query(SQL, values)
-    .then(response.redirect('/'))
-    .catch(err => handleError(err, response));
-}
-
-function updateTask(request, response) {
-  // destructure variables
-  let { title, description, category, contact, status } = request.body;
-  // need SQL to update the specific task that we were on
-  let SQL = `UPDATE tasks SET title=$1, description=$2, category=$3, contact=$4, status=$5 WHERE id=$6;`;
-  // use request.params.task_id === whatever task we were on
-  let values = [title, description, category, contact, status, request.params.task_id];
+  const SQL = `
+    INSERT INTO tasks (title, description, category, contact, status)
+    VALUES ($1,$2,$3,$4,$5)
+  `;
+  const values = [title, description, category, contact, status];
 
   client.query(SQL, values)
-    .then(response.redirect(`/tasks/${request.params.task_id}`))
-    .catch(err => handleError(err, response));
+    .then(() => {
+      // POST - Redirect - GET pattern
+      response.redirect('/');
+    })
+    .catch(err => {
+      handleError(err, response);
+    });
 }
 
 function handleError(error, response) {
-  response.render('pages/error-view', { error: 'Uh Oh' });
+  let viewModel = {
+    error: error.message
+  };
+  response.status(500).render('pages/error', viewModel);
 }
-
-client.connect()
-  .then(() => {
-    app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
-  });

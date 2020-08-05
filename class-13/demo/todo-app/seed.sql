@@ -1,2 +1,2 @@
 INSERT INTO tasks (title, contact, status, category, description) 
-VALUES('feed the pup','me', 'not done','pets','puppy is hungry');
+VALUES('feed Demi','Sam','do immediately after getting home','pets','Demi is hungry');
