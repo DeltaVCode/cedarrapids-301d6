@@ -66,13 +66,21 @@ function getOneTask(request, response) {
   `;
   let values = [request.params.task_id];
   client.query(SQL, values)
-    .then(result => {
+    .then(function getOneSqlResult(result) {
+      let task = new Task(result.rows[0]);
+
       let viewModel = {
-        task: result.rows[0],
+        task,
       };
       response.render('pages/detail', viewModel);
     })
     .catch(err => handleError(err, response));
+}
+
+function Task(row) {
+  this.id = row.id;
+  this.title = row.title;
+  this.isFromConstructor = true;
 }
 
 function showForm(request, response) {
