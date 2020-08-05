@@ -31,6 +31,7 @@ app.set('view engine', 'ejs');
 app.get('/', getTasks);
 
 app.get('/tasks/:task_id', getOneTask);
+app.put('/tasks/:task_id', updateOneTask);
 app.delete('/tasks/:task_id', deleteOneTask);
 
 app.get('/add', showForm);
@@ -84,6 +85,9 @@ function getOneTask(request, response) {
 function Task(row) {
   this.id = row.id;
   this.title = row.title;
+  this.contact = row.contact;
+  this.description = row.description;
+  this.status = row.status;
   this.isFromConstructor = true;
 }
 
@@ -99,6 +103,33 @@ function deleteOneTask(request, response) {
       response.redirect('/');
     })
     .catch(err => handleError(err, response));
+}
+
+function updateOneTask(request, response) {
+  console.log(request.body);
+  // Destructuring
+  let { title, description, category, contact, status } = request.body;
+
+  const SQL = `
+    UPDATE tasks SET
+      title = $2,
+      description = $3,
+      category = $4,
+      contact = $5,
+      status = $6
+    WHERE id = $1
+  `;
+  const { task_id } = request.params;
+  const values = [task_id, title, description, category, contact, status];
+
+  client.query(SQL, values)
+    .then(() => {
+      // POST - Redirect - GET pattern
+      response.redirect(`/tasks/${task_id}`);
+    })
+    .catch(err => {
+      handleError(err, response);
+    });
 }
 
 function showForm(request, response) {
