@@ -11,6 +11,9 @@
     </header>
     <main>
       <h2><%= task.title %></h2>
+      <form method="POST" action="/tasks/<%= task.id %>?_method=DELETE">
+        <button>Delete Task</button>
+      </form>
       <p><%= task.description %></p>
       <p>Contact: <%= task.contact %></p>
       <p>From Ctor: <%= task.isFromConstructor %></p>

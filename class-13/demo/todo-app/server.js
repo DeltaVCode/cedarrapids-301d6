@@ -2,6 +2,7 @@
 
 // Application Dependencies
 const express = require('express');
+const methodOverride = require('method-override')
 const pg = require('pg');
 
 // Environment variables
@@ -12,6 +13,8 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Express middleware
+// Override from POST to PUT/DELETE/etc with ?_method=PUT
+app.use(methodOverride('_method'));
 // Utilize ExpressJS functionality to parse the body of the request
 app.use(express.urlencoded({ extended: true }));
 // Specify a directory for static resources
@@ -28,6 +31,7 @@ app.set('view engine', 'ejs');
 app.get('/', getTasks);
 
 app.get('/tasks/:task_id', getOneTask);
+app.delete('/tasks/:task_id', deleteOneTask);
 
 app.get('/add', showForm);
 
@@ -81,6 +85,20 @@ function Task(row) {
   this.id = row.id;
   this.title = row.title;
   this.isFromConstructor = true;
+}
+
+function deleteOneTask(request, response) {
+  const SQL = `
+    DELETE
+    FROM tasks
+    WHERE id = $1
+  `;
+  let values = [request.params.task_id];
+  client.query(SQL, values)
+    .then(function deleteOneSqlResult() {
+      response.redirect('/');
+    })
+    .catch(err => handleError(err, response));
 }
 
 function showForm(request, response) {
