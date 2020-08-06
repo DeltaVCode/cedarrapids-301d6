@@ -15,3 +15,9 @@ ALTER TABLE books DROP COLUMN bookshelf;
 
 <!-- Query 6: Set the bookshelf_id as the foreign key of the books table -->
 ALTER TABLE books ADD CONSTRAINT fk_bookshelves FOREIGN KEY (bookshelf_id) REFERENCES bookshelves(id);
+
+<!-- Query 7: JOIN between them -->
+SELECT books.id, books.title, bookshelves.name AS bookshelf
+FROM books
+INNER JOIN bookshelves
+  ON books.bookshelf_id = bookshelves.id
